@@ -5,6 +5,7 @@ import "./models/Users.js";
 import { initializeReviews } from "./database/initReviews.js";
 import { initializeUsers } from "./database/initUsers.js";
 import { setupRelations } from "./models/relations.js";
+import "./models/Follow.js";
 
 async function init() {
     try{
