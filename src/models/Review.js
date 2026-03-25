@@ -12,6 +12,10 @@ export const Review = sequelize.define(
         username:{
             type: DataTypes.STRING,
             allowNull: false,
+            references: {
+                model: "users",
+                key: "username",
+            },
         },
         likes: {
             type: DataTypes.INTEGER,
