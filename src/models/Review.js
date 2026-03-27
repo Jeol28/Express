@@ -17,6 +17,14 @@ export const Review = sequelize.define(
                 key: "username",
             },
         },
+        professorId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: "professors",
+                key: "id",
+            },
+        },
         likes: {
             type: DataTypes.INTEGER,
             allowNull: false,

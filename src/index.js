@@ -1,7 +1,9 @@
 import app from "./app.js";
 import {sequelize} from "./database/database.js";
+import "./models/Professor.js";
 import "./models/Review.js";
 import "./models/Users.js";
+import { initializeProfessors } from "./database/initProfessors.js";
 import { initializeReviews } from "./database/initReviews.js";
 import { initializeUsers } from "./database/initUsers.js";
 import { setupRelations } from "./models/relations.js";
@@ -23,6 +25,7 @@ async function init() {
         await sequelize
         .sync({ force: true });
 
+        await initializeProfessors();
         await initializeUsers();
 
         await initializeReviews();
