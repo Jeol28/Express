@@ -14,7 +14,10 @@ export const getProfessorById = async (req, res) => {
     try {
         const { id } = req.params;
         const professor = await Professor.findByPk(id);
-        if (!professor) return res.status(404).json({ message: "Professor not found" });
+        
+        if (!professor) {
+            return res.status(404).json({ message: "Professor not found" });
+        }
         res.json(professor);
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -24,6 +27,12 @@ export const getProfessorById = async (req, res) => {
 export const getProfessorReviews = async (req, res) => {
     try {
         const { id } = req.params;
+        const professor = await Professor.findByPk(id);
+        
+        if (!professor) {
+            return res.status(404).json({ message: "Professor not found" });
+        }
+
         const reviews = await Review.findAll({
             where: { professorId: id }
         });

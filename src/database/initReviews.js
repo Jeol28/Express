@@ -2,7 +2,7 @@ import { Review } from "../models/Review.js";
 
 const reviewsData = [
     {
-        username: "Golosina33",
+        userId: 1,
         professorId: 1,
         likes: 20,
         content: "Gran profe me parece un muy bueno.",
@@ -11,7 +11,7 @@ const reviewsData = [
         comment: 0,
     },
     {
-        username: "Pablosexto",
+        userId: 2,
         professorId: 1,
         likes: 100,
         content: "El profesor es un excelente maestro, me parece un muy buen maestro, se toma su tiempo para explicar hasta que todos entiendan el tema, no califica muy duro.",
@@ -20,7 +20,7 @@ const reviewsData = [
         comment: 3,
     },
     {
-        username: "JuanGuti",
+        userId: 3,
         professorId: 2,
         likes: 1,
         content: "El profe me parece un muy buen maestro, se toma su tiempo para explicar hasta que todos entiendan el tema.",
@@ -29,7 +29,7 @@ const reviewsData = [
         comment: 10,
     },
     {
-        username: "HQL",
+        userId: 4,
         professorId: 2,
         likes: 1000,
         content: "Explica bien pero las evaluaciones son dificiles.",
@@ -38,7 +38,7 @@ const reviewsData = [
         comment: 100,
     },
     {
-        username: "Jp23",
+        userId: 5,
         professorId: 3,
         likes: 10,
         content: "Buen profesor para empezar a programar.",
@@ -47,7 +47,7 @@ const reviewsData = [
         comment: 1,
     },
     {
-        username: "MariaGarcia",
+        userId: 6,
         professorId: 3,
         likes: 45,
         content: "Excelente explicacion de las derivadas, muy paciente.",
@@ -56,7 +56,7 @@ const reviewsData = [
         comment: 2,
     },
     {
-        username: "PedroPerez",
+        userId: 7,
         professorId: 4,
         likes: 12,
         content: "Las tareas son largas pero se aprende mucho.",
@@ -65,7 +65,7 @@ const reviewsData = [
         comment: 5,
     },
     {
-        username: "LuciaMendez",
+        userId: 8,
         professorId: 4,
         likes: 8,
         content: "Muy aburrida la clase, solo lee las diapositivas.",
@@ -74,7 +74,7 @@ const reviewsData = [
         comment: 1,
     },
     {
-        username: "RobertoGomez",
+        userId: 9,
         professorId: 1,
         likes: 67,
         content: "El mejor profesor que he tenido.",
@@ -83,7 +83,7 @@ const reviewsData = [
         comment: 12,
     },
     {
-        username: "ElenaRivas",
+        userId: 10,
         professorId: 2,
         likes: 3,
         content: "Explica muy rapido y es dificil seguirle el ritmo.",
@@ -92,7 +92,7 @@ const reviewsData = [
         comment: 0,
     },
     {
-        username: "Golosina33",
+        userId: 1,
         professorId: 3,
         likes: 15,
         content: "Me gusta como explica los conceptos, aunque a veces se va por las ramas.",

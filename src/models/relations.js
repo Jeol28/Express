@@ -4,8 +4,8 @@ import { Follow } from "../models/Follow.js";
 import { Professor } from "../models/Professor.js";
 
 export function setupRelations() {
-    User.hasMany(Review, { foreignKey: "username", as: "reviews", onDelete: "CASCADE", hooks: true });
-    Review.belongsTo(User, { foreignKey: "username", as: "user" });
+    User.hasMany(Review, { foreignKey: "userId", as: "reviews", onDelete: "CASCADE", hooks: true });
+    Review.belongsTo(User, { foreignKey: "userId", as: "user" });
 
     Professor.hasMany(Review, { foreignKey: "professorId", as: "reviews", onDelete: "CASCADE", hooks: true });
     Review.belongsTo(Professor, { foreignKey: "professorId", as: "professor" });
