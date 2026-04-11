@@ -1,8 +1,17 @@
 import { Review } from "../models/Review.js";
+import { Professor } from "../models/Professor.js";
 
 export const getReviews = async (req, res) => {
     try {
-        const reviews = await Review.findAll();
+        const reviews = await Review.findAll({
+            include: [
+                {
+                    model: Professor,
+                    as: "professor",
+                    attributes: ["name", ["foto_prof", "foto"]],
+                },
+            ],
+        });
         return res.json(reviews);
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -53,7 +62,15 @@ export const deleteReview = async (req, res) => {
 export const getReviewById = async (req, res) => {
     try {
         const id = req.params.id;
-        const review = await Review.findByPk(id);
+        const review = await Review.findByPk(id, {
+            include: [
+                {
+                    model: Professor,
+                    as: "professor",
+                    attributes: ["name", ["foto_prof", "foto"]],
+                },
+            ],
+        });
 
         if (!review) {
             return res.status(404).json({ message: "Review not found" });

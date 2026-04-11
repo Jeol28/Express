@@ -1,5 +1,6 @@
 import { User } from "../models/Users.js";
 import { Review } from "../models/Review.js";
+import { Professor } from "../models/Professor.js";
 
 export const getUsers = async (req, res) => {
     try {
@@ -72,9 +73,16 @@ export const getUserReviews = async (req, res) => {
         const user = await User.findByPk(id);
         if (!user) return res.status(404).json({ message: "User not found" });
         
-        const reviews = await Review.findAll(
-            { where: { userId: user.id } }
-        );
+        const reviews = await Review.findAll({
+            where: { userId: user.id },
+            include: [
+                {
+                    model: Professor,
+                    as: "professor",
+                    attributes: ["name", ["foto_prof", "foto"]],
+                },
+            ],
+        });
         return res.json(reviews);
     } catch (error) {
         return res.status(500).json({ message: error.message });
