@@ -1,5 +1,6 @@
 import { Professor } from "../models/Professor.js";
 import { Review } from "../models/Review.js";
+import { User } from "../models/Users.js";
 
 export const getProfessors = async (req, res) => {
     try {
@@ -34,7 +35,19 @@ export const getProfessorReviews = async (req, res) => {
         }
 
         const reviews = await Review.findAll({
-            where: { professorId: id }
+            where: { professorId: id },
+            include: [
+                {
+                    model: Professor,
+                    as: "professor",
+                    attributes: ["name", ["foto_prof", "foto"]],
+                },
+                {
+                    model: User,
+                    as: "user",
+                    attributes: ["username", "carrera", ["foto_perfil", "foto"]],
+                },
+            ],
         });
         res.json(reviews);
     } catch (error) {

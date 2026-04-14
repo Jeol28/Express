@@ -81,6 +81,11 @@ export const getUserReviews = async (req, res) => {
                     as: "professor",
                     attributes: ["name", ["foto_prof", "foto"]],
                 },
+                {
+                    model: User,
+                    as: "user",
+                    attributes: ["username", "carrera", ["foto_perfil", "foto"]],
+                },
             ],
         });
         return res.json(reviews);

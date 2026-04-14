@@ -1,5 +1,6 @@
 import { Review } from "../models/Review.js";
 import { Professor } from "../models/Professor.js";
+import { User } from "../models/Users.js";
 
 export const getReviews = async (req, res) => {
     try {
@@ -9,6 +10,11 @@ export const getReviews = async (req, res) => {
                     model: Professor,
                     as: "professor",
                     attributes: ["name", ["foto_prof", "foto"]],
+                },
+                {
+                    model: User,
+                    as: "user",
+                    attributes: ["username", "carrera", ["foto_perfil", "foto"]],
                 },
             ],
         });
@@ -68,6 +74,11 @@ export const getReviewById = async (req, res) => {
                     model: Professor,
                     as: "professor",
                     attributes: ["name", ["foto_prof", "foto"]],
+                },
+                {
+                    model: User,
+                    as: "user",
+                    attributes: ["username", "carrera", ["foto_perfil", "foto"]],
                 },
             ],
         });
