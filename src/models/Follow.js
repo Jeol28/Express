@@ -9,21 +9,14 @@ export const Follow = sequelize.define(
             primaryKey: true,
             autoIncrement: true,
         },
+        // Firebase UIDs – sin FK para permitir follows entre usuarios no registrados en Express aún
         follower: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(128),
             allowNull: false,
-            references: {
-                model: "users",
-                key: "username",
-            },
         },
         following: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(128),
             allowNull: false,
-            references: {
-                model: "users",
-                key: "username",
-            },
         },
     }
 );

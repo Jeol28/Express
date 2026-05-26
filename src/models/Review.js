@@ -9,13 +9,9 @@ export const Review = sequelize.define(
             primaryKey: true,
             autoIncrement: true,
         },
-        userId:{
-            type: DataTypes.INTEGER,
+        userId: {
+            type: DataTypes.STRING(128), // Firebase UID – sin FK: el usuario puede no estar en Express aún
             allowNull: false,
-            references: {
-                model: "users",
-                key: "id",
-            },
         },
         professorId: {
             type: DataTypes.INTEGER,
@@ -25,31 +21,41 @@ export const Review = sequelize.define(
                 key: "id",
             },
         },
-        likes: {
+        likesCount: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            defaultValue: 0
+            defaultValue: 0,
         },
         content: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(2000),
             allowNull: false,
         },
-        time:{
+        time: {
             type: DataTypes.DATE,
             allowNull: false,
         },
-
-        rating:{
+        rating: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            defaultValue: 0
+            defaultValue: 0,
         },
         comment: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            defaultValue: 0
-        }
-
+            defaultValue: 0,
+        },
+        materia: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        latitude: {
+            type: DataTypes.DOUBLE,
+            allowNull: true,
+        },
+        longitude: {
+            type: DataTypes.DOUBLE,
+            allowNull: true,
+        },
     }
 );
 
