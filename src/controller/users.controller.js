@@ -2,6 +2,7 @@ import { User } from "../models/Users.js";
 import { Review } from "../models/Review.js";
 import { Professor } from "../models/Professor.js";
 import { Follow } from "../models/Follow.js";
+import { ReviewLike } from "../models/ReviewLike.js";
 import { sequelize } from "../database/database.js";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -144,25 +145,26 @@ export const deleteUser = async (req, res) => {
 export const getUserReviews = async (req, res) => {
     try {
         const { id } = req.params;
+        const { currentUserId } = req.query;
+
         const user = await User.findByPk(id);
         if (!user) return res.status(404).json({ message: "User not found" });
 
         const reviews = await Review.findAll({
             where: { userId: id },
             include: [
-                {
-                    model: Professor,
-                    as: "professor",
-                    attributes: ["name", "foto_prof"],
-                },
-                {
-                    model: User,
-                    as: "user",
-                    attributes: ["id", "username", "carrera", "foto"],
-                },
+                { model: Professor, as: "professor", attributes: ["name", "foto_prof"] },
+                { model: User, as: "user", attributes: ["id", "username", "carrera", "foto"] },
             ],
         });
-        return res.json(reviews.map(formatReview));
+
+        let likedSet = new Set();
+        if (currentUserId) {
+            const likes = await ReviewLike.findAll({ where: { userId: currentUserId } });
+            likedSet = new Set(likes.map(l => l.reviewId));
+        }
+
+        return res.json(reviews.map(r => formatReviewFull(r, likedSet.has(r.id))));
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
@@ -282,14 +284,28 @@ export const getFollowingIds = async (req, res) => {
     }
 };
 
-// ─── Helper para formatear Review ────────────────────────────────────────────
-function formatReview(review) {
+// ─── Helper para formatear Review (igual que en reviews.controller) ──────────
+function formatReviewFull(review, liked = false) {
     const r = review.toJSON ? review.toJSON() : review;
     const prof = r.professor;
     const user = r.user;
     return {
-        ...r,
+        id: String(r.id),
+        userId: r.userId,
+        professorId: String(r.professorId),
+        content: r.content,
+        time: r.time,
+        rating: r.rating,
+        comment: r.comment,
+        materia: r.materia ?? null,
+        latitude: r.latitude ?? null,
+        longitude: r.longitude ?? null,
+        likesCount: r.likesCount,
+        liked,
+        createdAt: r.createdAt,
+        updatedAt: r.updatedAt,
         professor: prof ? { name: prof.name, foto: prof.foto_prof } : null,
         user: user ? { id: user.id, username: user.username, carrera: user.carrera, foto: user.foto } : null,
+        imageUrls: r.imageUrls ?? [],
     };
 }

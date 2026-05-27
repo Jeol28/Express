@@ -56,6 +56,10 @@ export const Review = sequelize.define(
             type: DataTypes.DOUBLE,
             allowNull: true,
         },
+        imageUrls: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
+            allowNull: true,
+            defaultValue: [],
+        },
     }
 );
-

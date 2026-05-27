@@ -30,6 +30,7 @@ function formatReview(review, liked = false) {
         user: user
             ? { id: user.id, username: user.username, carrera: user.carrera, foto: user.foto }
             : null,
+        imageUrls: r.imageUrls ?? [],
     };
 }
 
@@ -90,7 +91,7 @@ export const getReviewById = async (req, res) => {
 
 export const createReview = async (req, res) => {
     try {
-        const { userId, professorId, content, rating, time, materia, latitude, longitude } = req.body;
+        const { userId, professorId, content, rating, time, materia, latitude, longitude, imageUrls } = req.body;
         const nestedUser = req.body.user;
 
         if (!userId || !professorId || !content) {
@@ -114,6 +115,7 @@ export const createReview = async (req, res) => {
             materia: materia ?? null,
             latitude: latitude ?? null,
             longitude: longitude ?? null,
+            imageUrls: Array.isArray(imageUrls) ? imageUrls : [],
         });
 
         const full = await Review.findByPk(newReview.id, { include: reviewIncludes });
